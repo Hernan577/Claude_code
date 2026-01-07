@@ -2,56 +2,142 @@
 <html>
 <head>
   <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: 'Calibri', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f5f5f7;
+      padding: 20px;
+      color: #1d1d1f;
+    }
+
+    .container {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .content {
+      padding: 32px 24px 24px;
+    }
+
+    .message {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #86868b;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .info {
+      background: #f5f5f7;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+
+    .info-text {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #1d1d1f;
       text-align: center;
     }
-    .button-container { display: flex; justify-content: center; }
-    .button {
-      padding: 10px 20px;
-      margin: 7px;
-      font-size: 14px;
+
+    .info-text strong {
+      font-weight: 600;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 500;
       cursor: pointer;
-      text-decoration: none;
-      color: #fff;
-      border: 1px solid transparent;
-      border-radius: 4px;
-      background-color: #4CAF50;
-      transition: opacity 0.2s;
+      transition: all 0.2s ease;
     }
-    .button.no { background-color: #f44336; }
-    .button:hover { opacity: 0.8; }
-    .texto-adicional {
-      color: grey;
-      font-size: 0.8em;
-      margin-top: 20px;
-      width: 90%;
-      line-height: 1.3em;
+
+    .btn-primary {
+      background: #0071e3;
+      color: white;
     }
-    .title {
-      font-weight: bold;
-      margin-bottom: 20px;
-      font-size: 1.1em;
+
+    .btn-primary:hover {
+      background: #0077ed;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+    }
+
+    .btn-secondary {
+      background: #f5f5f7;
+      color: #1d1d1f;
+    }
+
+    .btn-secondary:hover {
+      background: #e8e8ed;
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 400px) {
+      .content {
+        padding: 24px 16px 16px;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        padding: 12px;
+        font-size: 14px;
+      }
+
+      .info-text {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="title"></div>
-  <div class="button-container">
-    <button class="button si" onclick="respuestaPlanReinicia(true)">SI</button>
-    <button class="button no" onclick="respuestaPlanReinicia(false)">NO</button>
+  <div class="container">
+    <div class="content">
+      <div class="message">¿Cliente adhiere al Plan Reinicia Auto+?</div>
+
+      <div class="info">
+        <div class="info-text">
+          Selecciona <strong>Sí</strong> para aplicar el descuento Plan REINICIA AUTO+
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="respuestaPlanReinicia(true)">
+          Sí
+        </button>
+        <button class="btn btn-secondary" onclick="respuestaPlanReinicia(false)">
+          No
+        </button>
+      </div>
+    </div>
   </div>
-  <div class="texto-adicional">
-    Selecciona SI para aplicar el <strong>Descuento Plan REINICIA AUTO+</strong>
-  </div>
+
   <script>
     function respuestaPlanReinicia(adhesion) {
       google.script.run

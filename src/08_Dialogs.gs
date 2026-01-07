@@ -12,32 +12,35 @@
  * Muestra diálogo de promoción
  */
 function mostrarDialogoPromocion() {
-  var titulo = '¿Corresponde a una promoción de Honda?';
-  var textoAdicional =
-    '<div style="background-color: yellow; padding: 5px;">' +
-    '<strong style="color: red;">' +
-    'El cliente debe contratar Honda Plus para obtener matrícula gratis' +
-    '</strong></div>';
-  mostrarDialogoGenerico('DialogoPromocion', 400, 130, titulo, textoAdicional);
+  var html = HtmlService.createHtmlOutputFromFile('DialogoPromocion')
+    .setWidth(400)
+    .setHeight(240);
+  SpreadsheetApp.getUi().showModalDialog(html, 'Promoción Honda');
 }
 
 /**
  * Muestra diálogo de seguros
  */
 function mostrarDialogo() {
-  mostrarDialogoGenerico('DialogoSeguros', 410, 100, '¿Qué seguro deseas contratar?');
+  var html = HtmlService.createHtmlOutputFromFile('DialogoSeguros')
+    .setWidth(380)
+    .setHeight(260);
+  SpreadsheetApp.getUi().showModalDialog(html, 'Tipo de Seguro');
 }
 
 /**
  * Muestra diálogo de Plan Reinicia
  */
 function mostrarDialogoPlanReinicia() {
-  var titulo = '¿Cliente adhiere al Plan Reinicia Auto+?';
-  mostrarDialogoGenerico('DialogoPlanReinicia', 300, 150, titulo, '');
+  var html = HtmlService.createHtmlOutputFromFile('DialogoPlanReinicia')
+    .setWidth(380)
+    .setHeight(240);
+  SpreadsheetApp.getUi().showModalDialog(html, 'Plan Reinicia Auto+');
 }
 
 /**
  * Muestra diálogo genérico desde archivo HTML
+ * @deprecated Usar funciones específicas
  */
 function mostrarDialogoGenerico(nombreArchivo, ancho, alto, titulo, textoAdicional) {
   var html = HtmlService.createHtmlOutputFromFile(nombreArchivo)
@@ -59,8 +62,8 @@ function mostrarDialogoCambioDePotencia() {
   var template = HtmlService.createTemplateFromFile('DialogoCambioPotencia');
   template.opciones = opciones;
 
-  var htmlOutput = template.evaluate().setWidth(400).setHeight(170);
-  SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Seleccione la opción de cambio de potencia');
+  var htmlOutput = template.evaluate().setWidth(420).setHeight(260);
+  SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Cambio de Potencia');
 }
 
 /**
@@ -82,8 +85,8 @@ function PromoVerano2024(modelo) {
     var opciones = getOpcionesBonificaciones();
     var template = HtmlService.createTemplateFromFile('PromoVerano2024');
     template.opciones = opciones;
-    var htmlOutput = template.evaluate().setWidth(400).setHeight(200);
-    SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Selecciona la promoción si corresponde');
+    var htmlOutput = template.evaluate().setWidth(420).setHeight(260);
+    SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Promoción Disponible');
   }
 }
 
@@ -193,8 +196,8 @@ function mostrarDialogoDescargarPDFs(pdfData) {
   template.clienteInfo = pdfData.clienteInfo;
 
   var html = template.evaluate()
-    .setWidth(550)
-    .setHeight(550);
+    .setWidth(480)
+    .setHeight(460);
 
-  SpreadsheetApp.getUi().showModalDialog(html, '📄 Descargar PDFs - ' + pdfData.clienteInfo.codigo);
+  SpreadsheetApp.getUi().showModalDialog(html, 'Descargar PDFs - ' + pdfData.clienteInfo.codigo);
 }
