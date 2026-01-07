@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Calibri', sans-serif;
+      text-align: center;
+    }
+    .button-container { display: flex; justify-content: center; }
+    .button {
+      padding: 10px 20px;
+      margin: 7px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      background-color: #4CAF50;
+      transition: opacity 0.2s;
+    }
+    .button.no { background-color: #f44336; }
+    .button:hover { opacity: 0.8; }
+    .texto-adicional {
+      color: grey;
+      font-size: 0.8em;
+      margin-top: 20px;
+      width: 90%;
+      line-height: 1.3em;
+    }
+    .title {
+      font-weight: bold;
+      margin-bottom: 20px;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="title"></div>
+  <div class="button-container">
+    <button class="button si" onclick="respuestaPlanReinicia(true)">SI</button>
+    <button class="button no" onclick="respuestaPlanReinicia(false)">NO</button>
+  </div>
+  <div class="texto-adicional">
+    Selecciona SI para aplicar el <strong>Descuento Plan REINICIA AUTO+</strong>
+  </div>
+  <script>
+    function respuestaPlanReinicia(adhesion) {
+      google.script.run
+        .withSuccessHandler(function() { google.script.host.close(); })
+        .respuestaReiniciaPlan(adhesion);
+    }
+  </script>
+</body>
+</html>

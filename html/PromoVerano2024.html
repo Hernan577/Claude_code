@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    h2 { color: #2c3e50; }
+    label { font-weight: bold; }
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px 0 0;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn-aceptar { background-color: #2ecc71; color: #fff; }
+    .btn-cancelar { background-color: #e74c3c; color: #fff; }
+    button:hover { opacity: 0.9; }
+  </style>
+  <script>
+    function aceptar() {
+      var seleccion = document.getElementById('promocion').value;
+      google.script.run.setValorCeldaModeloPromo(seleccion);
+      google.script.host.close();
+    }
+    function cancelar() {
+      google.script.host.close();
+    }
+  </script>
+</head>
+<body>
+  <select id="promocion">
+    <? for (var i = 0; i < opciones.length; i++) { ?>
+      <option value="<?= opciones[i] ?>"><?= opciones[i] ?></option>
+    <? } ?>
+  </select>
+  <br>
+  <button class="btn-aceptar" onclick="aceptar()">Aceptar</button>
+  <button class="btn-cancelar" onclick="cancelar()">Cancelar</button>
+</body>
+</html>

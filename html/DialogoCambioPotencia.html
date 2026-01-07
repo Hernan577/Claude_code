@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+      text-align: center;
+    }
+    label { font-weight: bold; }
+    select {
+      width: 80%;
+      padding: 10px;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      display: block;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px 0;
+      border: 0;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .btn-aceptar { background: #2ecc71; color: #fff; }
+    .btn-no { background: #e74c3c; color: #fff; }
+    button[disabled] { opacity: .6; cursor: not-allowed; }
+    .button-container { text-align: center; margin-top: 20px; }
+  </style>
+  <script>
+    function setLoading(state) {
+      document.getElementById('btn-aceptar').disabled = state;
+      document.getElementById('btn-no').disabled = state;
+      document.getElementById('promocion').disabled = state;
+    }
+    function aceptar() {
+      var seleccion = document.getElementById('promocion').value;
+      if (!seleccion) return;
+      setLoading(true);
+      google.script.run
+        .withSuccessHandler(function() { google.script.host.close(); })
+        .withFailureHandler(function(err) {
+          setLoading(false);
+          alert('Error al guardar: ' + (err && err.message ? err.message : err));
+        })
+        .procesarOpcionCambioPotencia(seleccion);
+    }
+    function no() {
+      setLoading(true);
+      google.script.run
+        .withSuccessHandler(function() { google.script.host.close(); })
+        .withFailureHandler(function(err) {
+          setLoading(false);
+          alert('Error al limpiar: ' + (err && err.message ? err.message : err));
+        })
+        .limpiarSeleccion();
+    }
+  </script>
+</head>
+<body>
+  <select id="promocion">
+    <? for (var i = 0; i < opciones.length; i++) { ?>
+      <option value="<?= opciones[i] ?>"><?= opciones[i] ?></option>
+    <? } ?>
+  </select>
+  <div class="button-container">
+    <button id="btn-aceptar" class="btn-aceptar" onclick="aceptar()">Aceptar</button>
+    <button id="btn-no" class="btn-no" onclick="no()">No</button>
+  </div>
+</body>
+</html>

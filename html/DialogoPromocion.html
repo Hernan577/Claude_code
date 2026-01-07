@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Calibri', sans-serif;
+      text-align: center;
+    }
+    .button-container { display: flex; justify-content: center; }
+    .button {
+      padding: 10px 20px;
+      margin: 7px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      background-color: #4CAF50;
+      transition: opacity 0.2s;
+    }
+    .button.no { background-color: #f44336; }
+    .button:hover { opacity: 0.8; }
+    .texto-adicional {
+      color: grey;
+      font-size: 0.8em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="button-container">
+    <button class="button si" onclick="setValorYCerrar('Matricula Gratis HP / Reclamo (130€)')">SI</button>
+    <button class="button no" onclick="setValorYCerrar('Matricula Regalo Maquina')">NO</button>
+  </div>
+  <div class="texto-adicional"></div>
+  <script>
+    function setValorYCerrar(concepto) {
+      google.script.run
+        .withSuccessHandler(function() { google.script.host.close(); })
+        .withFailureHandler(function(error) {
+          alert("Error: " + error.message);
+          google.script.host.close();
+        })
+        .setValorCeldaPromo(concepto);
+    }
+  </script>
+</body>
+</html>
