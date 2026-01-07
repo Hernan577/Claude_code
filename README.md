@@ -24,8 +24,25 @@
 ├── DialogoPromocion.html
 ├── DialogoPlanReinicia.html
 ├── DialogoCambioPotencia.html
+├── DialogoDescargarPDFs.html    # ✨ NUEVO: Descarga directa de PDFs
 └── PromoVerano2024.html
 ```
+
+---
+
+## ✨ Nueva Funcionalidad: Descarga Directa de PDFs
+
+Al facturar, ahora aparece un **diálogo elegante** que permite descargar directamente los 3 PDFs generados:
+
+- 📋 **Carátula** del cliente
+- 💰 **Factura Moto**
+- 📝 **Instrucciones Fact**
+
+**Características:**
+- ✅ Descarga individual o todos a la vez
+- ✅ Diseño moderno con gradientes y animaciones
+- ✅ Los PDFs también se envían por email (funcionalidad intacta)
+- ✅ No necesitas ir al correo para obtener los archivos
 
 ---
 
