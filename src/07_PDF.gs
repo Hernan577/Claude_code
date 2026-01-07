@@ -9,7 +9,7 @@
  * @param {Sheet} hoja - Hoja Carpeta DIGITAL
  * @param {Spreadsheet} hojaDeCalculo - Spreadsheet activo
  * @param {Array} datos - Array con datos [asesor, tipoOp, codCliente, nombre, ...]
- * @return {string} URL del archivo de carátula en Drive
+ * @return {Object} Objeto con URLs de los PDFs: {caratula, factura, instrucciones, clienteInfo}
  */
 function crearEnviarYGuardarPDF(hoja, hojaDeCalculo, datos) {
   var asesor = datos[0];
@@ -71,6 +71,10 @@ function crearEnviarYGuardarPDF(hoja, hojaDeCalculo, datos) {
 
   var pdfBlobFactura = respFactura.getBlob().setName('Factura Moto ' + codigoCliente + '.pdf');
 
+  // Guardar Factura en Drive
+  var fileFactura = folder.createFile(pdfBlobFactura);
+  var urlArchivoFactura = fileFactura.getUrl();
+
   // 3. PDF INSTRUCCIONES FACT
   var hojaInstrucciones = getSheet(CONFIG.SHEETS.INSTRUCCIONES_FACT);
   if (!hojaInstrucciones) throw new Error('La hoja "' + CONFIG.SHEETS.INSTRUCCIONES_FACT + '" no existe.');
@@ -91,6 +95,10 @@ function crearEnviarYGuardarPDF(hoja, hojaDeCalculo, datos) {
   }
 
   var pdfBlobInstruc = respInstruc.getBlob().setName('Instrucciones Fact ' + codigoCliente + '.pdf');
+
+  // Guardar Instrucciones en Drive
+  var fileInstrucciones = folder.createFile(pdfBlobInstruc);
+  var urlArchivoInstrucciones = fileInstrucciones.getUrl();
 
   // 4. ENVIAR EMAIL
   MailApp.sendEmail({
@@ -116,5 +124,15 @@ function crearEnviarYGuardarPDF(hoja, hojaDeCalculo, datos) {
     attachments: [pdfBlobCaratula, pdfBlobFactura, pdfBlobInstruc]
   });
 
-  return urlArchivoCaratula;
+  // 5. RETORNAR URLS DE TODOS LOS PDFs
+  return {
+    caratula: urlArchivoCaratula,
+    factura: urlArchivoFactura,
+    instrucciones: urlArchivoInstrucciones,
+    clienteInfo: {
+      codigo: codigoCliente,
+      nombre: nombreApellido,
+      chasis: chasis
+    }
+  };
 }

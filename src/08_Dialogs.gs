@@ -163,3 +163,38 @@ function respuestaReiniciaPlan(adhesion) {
     hoja.getRange('K6').setValue('Descuento Plan REINICIA AUTO +');
   }
 }
+
+/**
+ * Muestra diálogo para descargar PDFs generados
+ * @param {Object} pdfData - Objeto con URLs y datos del cliente
+ */
+function mostrarDialogoDescargarPDFs(pdfData) {
+  var template = HtmlService.createTemplateFromFile('DialogoDescargarPDFs');
+
+  // Preparar datos para el template
+  template.pdfs = [
+    {
+      tipo: 'caratula',
+      nombre: 'Carátula - ' + pdfData.clienteInfo.codigo,
+      url: pdfData.caratula
+    },
+    {
+      tipo: 'factura',
+      nombre: 'Factura Moto - ' + pdfData.clienteInfo.codigo,
+      url: pdfData.factura
+    },
+    {
+      tipo: 'instrucciones',
+      nombre: 'Instrucciones Fact - ' + pdfData.clienteInfo.codigo,
+      url: pdfData.instrucciones
+    }
+  ];
+
+  template.clienteInfo = pdfData.clienteInfo;
+
+  var html = template.evaluate()
+    .setWidth(550)
+    .setHeight(550);
+
+  SpreadsheetApp.getUi().showModalDialog(html, '📄 Descargar PDFs - ' + pdfData.clienteInfo.codigo);
+}

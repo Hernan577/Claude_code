@@ -28,12 +28,12 @@ function facturar() {
     // Leer datos necesarios de una vez (OPTIMIZADO)
     var datos = leerDatosFacturacion(hoja);
 
-    // Crear y enviar PDF de carátula
-    var urlCaratula = crearEnviarYGuardarPDF(hoja, ss, datos.valoresBasicos);
-    if (!urlCaratula) throw new Error('No se pudo crear la carátula.');
+    // Crear y enviar PDFs (carátula, factura, instrucciones)
+    var pdfData = crearEnviarYGuardarPDF(hoja, ss, datos.valoresBasicos);
+    if (!pdfData || !pdfData.caratula) throw new Error('No se pudo crear los PDFs.');
 
     // Agregar fila a SEGUIMIENTO
-    agregarFilaSeguimiento(hojaSeguimiento, datos, urlCaratula);
+    agregarFilaSeguimiento(hojaSeguimiento, datos, pdfData.caratula);
 
     // Enviar accesorios si no es CESION
     var urlPdfPeM = null;
@@ -46,6 +46,9 @@ function facturar() {
 
     // Exportar accesorios si hay
     exportarAccesoriosSiHay(hoja);
+
+    // MOSTRAR DIÁLOGO PARA DESCARGAR PDFs
+    mostrarDialogoDescargarPDFs(pdfData);
 
   } catch (e) {
     Logger.log(e);

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      padding: 30px;
+      max-width: 500px;
+      width: 100%;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 24px;
+      text-align: center;
+    }
+    .subtitle {
+      color: #7f8c8d;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+    .pdf-list {
+      margin-bottom: 25px;
+    }
+    .pdf-item {
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+    .pdf-item:hover {
+      border-color: #667eea;
+      background: #f0f4ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+    }
+    .pdf-info {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+    .pdf-icon {
+      width: 40px;
+      height: 40px;
+      background: #667eea;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-size: 20px;
+    }
+    .pdf-name {
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 15px;
+    }
+    .download-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .download-btn:hover {
+      background: #5568d3;
+      transform: scale(1.05);
+    }
+    .button-container {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+    .btn-secondary {
+      background: #95a5a6;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover {
+      background: #7f8c8d;
+    }
+    .success-icon {
+      text-align: center;
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #7f8c8d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="success-icon">✅</div>
+    <h2>PDFs Generados Correctamente</h2>
+    <p class="subtitle">Haz clic en cada PDF para descargarlo</p>
+
+    <div class="pdf-list" id="pdfList">
+      <!-- Se llenará dinámicamente -->
+    </div>
+
+    <div class="button-container">
+      <button class="btn-primary" onclick="descargarTodos()">⬇️ Descargar Todos</button>
+      <button class="btn-secondary" onclick="cerrar()">Cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    // Datos de los PDFs (se inyectan desde el servidor)
+    var pdfs = <?= JSON.stringify(pdfs) ?>;
+    var clienteInfo = <?= JSON.stringify(clienteInfo) ?>;
+
+    // Renderizar lista de PDFs
+    function renderPDFs() {
+      var container = document.getElementById('pdfList');
+      container.innerHTML = '';
+
+      pdfs.forEach(function(pdf, index) {
+        var item = document.createElement('div');
+        item.className = 'pdf-item';
+
+        var icon = getIcon(pdf.tipo);
+
+        item.innerHTML =
+          '<div class="pdf-info">' +
+            '<div class="pdf-icon">' + icon + '</div>' +
+            '<div class="pdf-name">' + pdf.nombre + '</div>' +
+          '</div>' +
+          '<a href="' + pdf.url + '" target="_blank" class="download-btn" download>' +
+            '⬇️ Descargar' +
+          '</a>';
+
+        container.appendChild(item);
+      });
+    }
+
+    function getIcon(tipo) {
+      switch(tipo) {
+        case 'caratula': return '📋';
+        case 'factura': return '💰';
+        case 'instrucciones': return '📝';
+        default: return '📄';
+      }
+    }
+
+    function descargarTodos() {
+      // Abrir todos los PDFs en nuevas pestañas
+      pdfs.forEach(function(pdf, index) {
+        setTimeout(function() {
+          window.open(pdf.url, '_blank');
+        }, index * 500); // Retraso de 500ms entre cada descarga
+      });
+    }
+
+    function cerrar() {
+      google.script.host.close();
+    }
+
+    // Renderizar al cargar
+    renderPDFs();
+  </script>
+</body>
+</html>
