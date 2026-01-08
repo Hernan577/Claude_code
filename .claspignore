@@ -1,0 +1,28 @@
+# Ignorar archivos que NO deben subirse a Apps Script
+**/**
+!src/*.gs
+!html/*.html
+!appsscript.json
+
+# Ignorar archivos de documentación
+*.md
+README.md
+CHANGELOG.md
+DESIGN_SYSTEM.md
+DEPLOYMENT_GUIDE.md
+QUICK_DEPLOYMENT.md
+WHAT_CHANGED.md
+RESPONSIVE_OPTIMIZATION.md
+
+# Ignorar archivos de Git
+.git
+.gitignore
+
+# Ignorar archivos de Node
+node_modules/
+package.json
+package-lock.json
+
+# Ignorar configuración
+.clasp.json
+.claspignore

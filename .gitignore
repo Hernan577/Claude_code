@@ -1,0 +1,22 @@
+# Archivos de clasp - NO compartir públicamente
+.clasp.json
+
+# Credenciales de clasp
+.clasprc.json
+
+# Archivos de Node.js
+node_modules/
+package-lock.json
+
+# Archivos temporales
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
