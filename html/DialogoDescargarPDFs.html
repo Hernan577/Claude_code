@@ -158,6 +158,11 @@
       transform: translateY(0);
     }
 
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     @media (max-width: 500px) {
       body {
         padding: 12px;
@@ -208,7 +213,7 @@
     </div>
 
     <div class="actions">
-      <button class="btn btn-primary" onclick="descargarTodos()">
+      <button id="btnDescargarTodos" class="btn btn-primary" onclick="descargarTodos(event)">
         ⬇️ Descargar todos
       </button>
       <button class="btn btn-secondary" onclick="cerrar()">
@@ -265,12 +270,36 @@
       }
     }
 
-    function descargarTodos() {
-      pdfs.forEach(function(pdf, index) {
+    function descargarTodos(evt) {
+      var btn = evt ? evt.target : document.getElementById('btnDescargarTodos');
+      var textoOriginal = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '⏳ Abriendo...';
+
+      try {
+        // Abrir todos los PDFs inmediatamente (sin setTimeout)
+        // Los navegadores permiten múltiples ventanas si se abren en respuesta directa al click
+        var abiertos = 0;
+        pdfs.forEach(function(pdf) {
+          var ventana = window.open(pdf.url, '_blank');
+          if (ventana) abiertos++;
+        });
+
+        // Feedback al usuario
         setTimeout(function() {
-          window.open(pdf.url, '_blank');
-        }, index * 400);
-      });
+          if (abiertos === pdfs.length) {
+            btn.innerHTML = '✅ Abiertos (' + abiertos + ')';
+          } else {
+            btn.innerHTML = '⚠️ Algunos bloqueados';
+            alert('Se abrieron ' + abiertos + ' de ' + pdfs.length + ' PDFs.\n\nSi no ves todas las pestañas, permite pop-ups en tu navegador y vuelve a intentar.');
+          }
+          btn.disabled = false;
+        }, 1000);
+      } catch(e) {
+        btn.innerHTML = textoOriginal;
+        btn.disabled = false;
+        alert('Error al abrir PDFs: ' + e.message);
+      }
     }
 
     function cerrar() {
