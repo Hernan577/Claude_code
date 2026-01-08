@@ -74,8 +74,17 @@ clasp login
 
 ### **Paso 5: Configurar el archivo .clasp.json**
 
-1. Abre el archivo `.clasp.json` (está en la raíz del proyecto)
-2. Reemplaza `TU_SCRIPT_ID_AQUI` con el ID que copiaste:
+1. **Copia el template**: Renombra `.clasp.json.template` a `.clasp.json`
+   ```bash
+   # En Mac/Linux
+   cp .clasp.json.template .clasp.json
+
+   # En Windows (CMD)
+   copy .clasp.json.template .clasp.json
+   ```
+
+2. Abre el archivo `.clasp.json` con tu editor de texto
+3. Reemplaza `TU_SCRIPT_ID_AQUI` con el ID que copiaste en el Paso 4:
 
 ```json
 {
@@ -85,7 +94,9 @@ clasp login
 }
 ```
 
-3. **Guarda el archivo**
+4. **Guarda el archivo**
+
+**Nota:** `.clasp.json` está en `.gitignore` para que no compartas accidentalmente tu Script ID.
 
 ---
 

@@ -1,0 +1,23 @@
+{
+  "scriptId": "TU_SCRIPT_ID_AQUI",
+  "rootDir": "./",
+  "filePushOrder": [
+    "appsscript.json",
+    "src/01_Config.gs",
+    "src/02_Utils.gs",
+    "src/03_DataValidation.gs",
+    "src/04_OnEdit.gs",
+    "src/05_Facturacion.gs",
+    "src/06_Exportacion.gs",
+    "src/07_PDF.gs",
+    "src/08_Dialogs.gs",
+    "src/09_Cleanup.gs",
+    "src/10_Menu.gs",
+    "html/DialogoDescargarPDFs.html",
+    "html/DialogoSeguros.html",
+    "html/DialogoPromocion.html",
+    "html/DialogoPlanReinicia.html",
+    "html/DialogoCambioPotencia.html",
+    "html/PromoVerano2024.html"
+  ]
+}
