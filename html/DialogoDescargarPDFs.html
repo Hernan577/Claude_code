@@ -223,12 +223,30 @@
   </div>
 
   <script>
-    var pdfs = <?= JSON.stringify(pdfs) ?>;
-    var clienteInfo = <?= JSON.stringify(clienteInfo) ?>;
+    // Recibir datos del servidor con validación
+    var pdfs = <?!= JSON.stringify(pdfs) ?>;
+    var clienteInfo = <?!= JSON.stringify(clienteInfo) ?>;
+
+    // Debug: Mostrar lo que se recibió
+    console.log('PDFs recibidos:', pdfs);
+    console.log('Cliente info:', clienteInfo);
+    console.log('pdfs es array?', Array.isArray(pdfs));
+
+    // Validar que pdfs sea un array
+    if (!Array.isArray(pdfs)) {
+      console.error('ERROR: pdfs no es un array:', pdfs);
+      alert('Error: No se recibieron correctamente los datos de los PDFs.\n\nTipo recibido: ' + typeof pdfs);
+      pdfs = [];
+    }
 
     function renderPDFs() {
       var container = document.getElementById('pdfList');
       container.innerHTML = '';
+
+      if (!pdfs || pdfs.length === 0) {
+        container.innerHTML = '<div style="text-align:center;color:#86868b;padding:20px;">No hay PDFs disponibles</div>';
+        return;
+      }
 
       pdfs.forEach(function(pdf) {
         var item = document.createElement('div');
@@ -273,6 +291,13 @@
     function descargarTodos(evt) {
       var btn = evt ? evt.target : document.getElementById('btnDescargarTodos');
       var textoOriginal = btn.innerHTML;
+
+      // Validar que pdfs existe y es un array
+      if (!pdfs || !Array.isArray(pdfs) || pdfs.length === 0) {
+        alert('No hay PDFs disponibles para descargar');
+        return;
+      }
+
       btn.disabled = true;
       btn.innerHTML = '⏳ Abriendo...';
 
@@ -280,10 +305,13 @@
         // Abrir todos los PDFs inmediatamente (sin setTimeout)
         // Los navegadores permiten múltiples ventanas si se abren en respuesta directa al click
         var abiertos = 0;
-        pdfs.forEach(function(pdf) {
-          var ventana = window.open(pdf.url, '_blank');
-          if (ventana) abiertos++;
-        });
+        for (var i = 0; i < pdfs.length; i++) {
+          var pdf = pdfs[i];
+          if (pdf && pdf.url) {
+            var ventana = window.open(pdf.url, '_blank');
+            if (ventana) abiertos++;
+          }
+        }
 
         // Feedback al usuario
         setTimeout(function() {
