@@ -10,7 +10,7 @@
 
 ```bash
 # 1. Clona el repositorio
-git clone https://github.com/Hernan577/Claude_code.git
+git clone https://github.com/GestionHonda/Claude_code.git
 cd Claude_code
 
 # 2. Ejecuta el script de configuración automática

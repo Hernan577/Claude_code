@@ -9,7 +9,7 @@ Abre **Terminal** en tu Mac y ejecuta:
 cd ~/Documents  # o ~/Desktop si prefieres
 
 # Clona el repositorio
-git clone https://github.com/Hernan577/Claude_code.git
+git clone https://github.com/GestionHonda/Claude_code.git
 
 # Entra a la carpeta
 cd Claude_code
@@ -198,7 +198,7 @@ clasp pull
 
 No pasa nada, simplemente vuelves a clonar de GitHub:
 ```bash
-git clone https://github.com/Hernan577/Claude_code.git
+git clone https://github.com/GestionHonda/Claude_code.git
 ```
 
 ---
