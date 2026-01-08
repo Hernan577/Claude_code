@@ -11,133 +11,111 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: #f5f5f7;
-      padding: 20px;
-      color: #1d1d1f;
-    }
-
-    .container {
+      font-family: 'Roboto', 'Google Sans', Arial, sans-serif;
       background: white;
-      border-radius: 18px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    .content {
-      padding: 20px 20px 16px;
+      padding: 24px;
+      color: #202124;
     }
 
     .message {
-      font-size: 15px;
+      font-size: 16px;
       line-height: 1.5;
-      color: #1d1d1f;
-      text-align: center;
-      margin-bottom: 12px;
-      font-weight: 500;
+      color: #202124;
+      margin-bottom: 16px;
+      font-weight: 400;
     }
 
     .notice {
-      background: #fff9e6;
-      border-left: 3px solid #ffcc00;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 16px;
+      background: #fef7e0;
+      border-left: 4px solid #f9ab00;
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin-bottom: 20px;
     }
 
     .notice-text {
-      font-size: 13px;
+      font-size: 14px;
       line-height: 1.4;
-      color: #1d1d1f;
+      color: #5f6368;
     }
 
     .notice-text strong {
-      color: #bf5000;
-      font-weight: 600;
+      color: #202124;
+      font-weight: 500;
     }
 
     .actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
       gap: 12px;
+      justify-content: flex-start;
     }
 
     .btn {
-      padding: 12px;
+      padding: 10px 24px;
       border: none;
-      border-radius: 12px;
-      font-size: 15px;
+      border-radius: 4px;
+      font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: background 0.2s;
+      font-family: 'Roboto', Arial, sans-serif;
     }
 
     .btn-primary {
-      background: #0071e3;
+      background: #1a73e8;
       color: white;
     }
 
     .btn-primary:hover {
-      background: #0077ed;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+      background: #1557b0;
     }
 
     .btn-secondary {
-      background: #f5f5f7;
-      color: #1d1d1f;
+      background: white;
+      color: #5f6368;
+      border: 1px solid #dadce0;
     }
 
     .btn-secondary:hover {
-      background: #e8e8ed;
-      transform: translateY(-1px);
+      background: #f8f9fa;
+      border-color: #bdc1c6;
     }
 
     .btn:active {
-      transform: translateY(0);
+      opacity: 0.8;
     }
 
     @media (max-width: 400px) {
-      .content {
-        padding: 24px 16px 16px;
+      body {
+        padding: 16px;
       }
 
       .actions {
-        grid-template-columns: 1fr;
+        flex-direction: column;
       }
 
       .btn {
-        padding: 12px;
-        font-size: 14px;
-      }
-
-      .notice-text {
-        font-size: 12px;
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="content">
-      <div class="message">¿Corresponde a una promoción de Honda?</div>
+  <div class="message">¿Corresponde a una promoción de Honda?</div>
 
-      <div class="notice">
-        <div class="notice-text">
-          <strong>Importante:</strong> El cliente debe contratar Honda Plus para obtener matrícula gratis
-        </div>
-      </div>
-
-      <div class="actions">
-        <button class="btn btn-primary" onclick="setValorYCerrar('Matricula Gratis HP / Reclamo (130€)')">
-          Sí
-        </button>
-        <button class="btn btn-secondary" onclick="setValorYCerrar('Matricula Regalo Maquina')">
-          No
-        </button>
-      </div>
+  <div class="notice">
+    <div class="notice-text">
+      <strong>Importante:</strong> El cliente debe contratar Honda Plus para obtener matrícula gratis
     </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="setValorYCerrar('Matricula Gratis HP / Reclamo (130€)')">
+      Sí
+    </button>
+    <button class="btn btn-secondary" onclick="setValorYCerrar('Matricula Regalo Maquina')">
+      No
+    </button>
   </div>
 
   <script>
