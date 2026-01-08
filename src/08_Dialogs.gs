@@ -14,7 +14,7 @@
 function mostrarDialogoPromocion() {
   var html = HtmlService.createHtmlOutputFromFile('DialogoPromocion')
     .setWidth(400)
-    .setHeight(240);
+    .setHeight(210);
   SpreadsheetApp.getUi().showModalDialog(html, 'Promoción Honda');
 }
 
@@ -24,7 +24,7 @@ function mostrarDialogoPromocion() {
 function mostrarDialogo() {
   var html = HtmlService.createHtmlOutputFromFile('DialogoSeguros')
     .setWidth(380)
-    .setHeight(260);
+    .setHeight(220);
   SpreadsheetApp.getUi().showModalDialog(html, 'Tipo de Seguro');
 }
 
@@ -34,7 +34,7 @@ function mostrarDialogo() {
 function mostrarDialogoPlanReinicia() {
   var html = HtmlService.createHtmlOutputFromFile('DialogoPlanReinicia')
     .setWidth(380)
-    .setHeight(240);
+    .setHeight(200);
   SpreadsheetApp.getUi().showModalDialog(html, 'Plan Reinicia Auto+');
 }
 
@@ -62,7 +62,7 @@ function mostrarDialogoCambioDePotencia() {
   var template = HtmlService.createTemplateFromFile('DialogoCambioPotencia');
   template.opciones = opciones;
 
-  var htmlOutput = template.evaluate().setWidth(420).setHeight(260);
+  var htmlOutput = template.evaluate().setWidth(420).setHeight(230);
   SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Cambio de Potencia');
 }
 
@@ -85,7 +85,7 @@ function PromoVerano2024(modelo) {
     var opciones = getOpcionesBonificaciones();
     var template = HtmlService.createTemplateFromFile('PromoVerano2024');
     template.opciones = opciones;
-    var htmlOutput = template.evaluate().setWidth(420).setHeight(260);
+    var htmlOutput = template.evaluate().setWidth(420).setHeight(230);
     SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Promoción Disponible');
   }
 }
@@ -197,7 +197,7 @@ function mostrarDialogoDescargarPDFs(pdfData) {
 
   var html = template.evaluate()
     .setWidth(480)
-    .setHeight(460);
+    .setHeight(400);
 
   SpreadsheetApp.getUi().showModalDialog(html, 'Descargar PDFs - ' + pdfData.clienteInfo.codigo);
 }
