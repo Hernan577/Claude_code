@@ -251,7 +251,7 @@
       pdfs.forEach(function(pdf) {
         var item = document.createElement('div');
         item.className = 'pdf-item';
-        item.onclick = function() { window.open(pdf.url, '_blank'); };
+        item.onclick = function() { descargarPDF(pdf.url, pdf.nombre); };
 
         var icon = getIcon(pdf.tipo);
         var tipo = getTipo(pdf.tipo);
@@ -288,6 +288,28 @@
       }
     }
 
+    function convertirAUrlDescarga(url) {
+      // Convertir URL de Google Drive a formato de descarga directa
+      // De: https://drive.google.com/file/d/FILE_ID/view
+      // A: https://drive.google.com/uc?export=download&id=FILE_ID
+      var match = url.match(/\/d\/([^\/]+)/);
+      if (match && match[1]) {
+        return 'https://drive.google.com/uc?export=download&id=' + match[1];
+      }
+      return url;
+    }
+
+    function descargarPDF(url, nombre) {
+      var urlDescarga = convertirAUrlDescarga(url);
+      var a = document.createElement('a');
+      a.href = urlDescarga;
+      a.download = nombre + '.pdf';
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
     function descargarTodos(evt) {
       var btn = evt ? evt.target : document.getElementById('btnDescargarTodos');
       var textoOriginal = btn.innerHTML;
@@ -299,34 +321,33 @@
       }
 
       btn.disabled = true;
-      btn.innerHTML = '⏳ Abriendo...';
+      btn.innerHTML = '⏳ Descargando...';
 
       try {
-        // Abrir todos los PDFs inmediatamente (sin setTimeout)
-        // Los navegadores permiten múltiples ventanas si se abren en respuesta directa al click
-        var abiertos = 0;
+        // Descargar todos los PDFs directamente a la carpeta de Descargas
+        var descargados = 0;
         for (var i = 0; i < pdfs.length; i++) {
           var pdf = pdfs[i];
           if (pdf && pdf.url) {
-            var ventana = window.open(pdf.url, '_blank');
-            if (ventana) abiertos++;
+            // Pequeño delay para evitar que el navegador bloquee las descargas múltiples
+            (function(p, index) {
+              setTimeout(function() {
+                descargarPDF(p.url, p.nombre);
+              }, index * 300);
+            })(pdf, i);
+            descargados++;
           }
         }
 
         // Feedback al usuario
         setTimeout(function() {
-          if (abiertos === pdfs.length) {
-            btn.innerHTML = '✅ Abiertos (' + abiertos + ')';
-          } else {
-            btn.innerHTML = '⚠️ Algunos bloqueados';
-            alert('Se abrieron ' + abiertos + ' de ' + pdfs.length + ' PDFs.\n\nSi no ves todas las pestañas, permite pop-ups en tu navegador y vuelve a intentar.');
-          }
+          btn.innerHTML = '✅ Descargados (' + descargados + ')';
           btn.disabled = false;
-        }, 1000);
+        }, pdfs.length * 300 + 500);
       } catch(e) {
         btn.innerHTML = textoOriginal;
         btn.disabled = false;
-        alert('Error al abrir PDFs: ' + e.message);
+        alert('Error al descargar PDFs: ' + e.message);
       }
     }
 
