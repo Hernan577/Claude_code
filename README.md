@@ -1,6 +1,25 @@
 # Funciones Carpeta Digital - Google Apps Script
 ### Sistema de Gestión de Ventas Honda Maquina Valencia
-**Versión 2.0 - Optimizado 2026-01-07**
+**Versión 3.0 - Con clasp deployment - 2026-01-08**
+
+---
+
+## 🚀 Inicio Rápido para Mac
+
+**¿Primera vez configurando el proyecto?**
+
+```bash
+# 1. Clona el repositorio
+git clone https://github.com/Hernan577/Claude_code.git
+cd Claude_code
+
+# 2. Ejecuta el script de configuración automática
+./setup-mac.sh
+```
+
+El script configurará todo automáticamente: Node.js, clasp, autenticación y Script ID.
+
+**Consulta la [Guía Completa para Mac](SETUP_MAC.md) para más detalles.**
 
 ---
 
@@ -43,6 +62,41 @@ Al facturar, ahora aparece un **diálogo elegante** que permite descargar direct
 - ✅ Diseño moderno con gradientes y animaciones
 - ✅ Los PDFs también se envían por email (funcionalidad intacta)
 - ✅ No necesitas ir al correo para obtener los archivos
+
+---
+
+## 🔄 Despliegue de Cambios a Apps Script
+
+Una vez configurado el proyecto, puedes desplegar tus cambios con **un solo comando**:
+
+```bash
+# Opción 1: Script automático (recomendado)
+./push-to-appscript.sh
+
+# Opción 2: Comando directo
+clasp push
+```
+
+**Workflow completo:**
+```bash
+# 1. Obtener últimos cambios de GitHub
+git pull origin main
+
+# 2. Editar archivos localmente (src/*.gs, html/*.html)
+
+# 3. Subir a Apps Script
+clasp push
+
+# 4. Verificar en el navegador
+clasp open
+```
+
+**Comandos útiles:**
+- `clasp push` - Sube código a Apps Script
+- `clasp pull` - Descarga código de Apps Script
+- `clasp open` - Abre el proyecto en el navegador
+- `clasp login --status` - Verifica qué cuenta está activa
+- `clasp logout` - Cierra sesión
 
 ---
 
