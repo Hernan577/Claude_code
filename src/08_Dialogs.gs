@@ -12,7 +12,7 @@
  * Muestra diálogo de promoción
  */
 function mostrarDialogoPromocion() {
-  var html = HtmlService.createHtmlOutputFromFile('DialogoPromocion')
+  var html = HtmlService.createHtmlOutputFromFile('html/DialogoPromocion')
     .setWidth(400)
     .setHeight(210);
   SpreadsheetApp.getUi().showModalDialog(html, 'Promoción Honda');
@@ -22,7 +22,7 @@ function mostrarDialogoPromocion() {
  * Muestra diálogo de seguros
  */
 function mostrarDialogo() {
-  var html = HtmlService.createHtmlOutputFromFile('DialogoSeguros')
+  var html = HtmlService.createHtmlOutputFromFile('html/DialogoSeguros')
     .setWidth(380)
     .setHeight(220);
   SpreadsheetApp.getUi().showModalDialog(html, 'Tipo de Seguro');
@@ -32,7 +32,7 @@ function mostrarDialogo() {
  * Muestra diálogo de Plan Reinicia
  */
 function mostrarDialogoPlanReinicia() {
-  var html = HtmlService.createHtmlOutputFromFile('DialogoPlanReinicia')
+  var html = HtmlService.createHtmlOutputFromFile('html/DialogoPlanReinicia')
     .setWidth(380)
     .setHeight(200);
   SpreadsheetApp.getUi().showModalDialog(html, 'Plan Reinicia Auto+');
@@ -59,7 +59,7 @@ function mostrarDialogoCambioDePotencia() {
     .flat()
     .filter(String);
 
-  var template = HtmlService.createTemplateFromFile('DialogoCambioPotencia');
+  var template = HtmlService.createTemplateFromFile('html/DialogoCambioPotencia');
   template.opciones = opciones;
 
   var htmlOutput = template.evaluate().setWidth(420).setHeight(230);
@@ -83,7 +83,7 @@ function PromoVerano2024(modelo) {
 
   if (mostrarDlg) {
     var opciones = getOpcionesBonificaciones();
-    var template = HtmlService.createTemplateFromFile('PromoVerano2024');
+    var template = HtmlService.createTemplateFromFile('html/PromoVerano2024');
     template.opciones = opciones;
     var htmlOutput = template.evaluate().setWidth(420).setHeight(230);
     SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Promoción Disponible');
@@ -172,7 +172,7 @@ function respuestaReiniciaPlan(adhesion) {
  * @param {Object} pdfData - Objeto con URLs y datos del cliente
  */
 function mostrarDialogoDescargarPDFs(pdfData) {
-  var template = HtmlService.createTemplateFromFile('DialogoDescargarPDFs');
+  var template = HtmlService.createTemplateFromFile('html/DialogoDescargarPDFs');
 
   // Preparar datos para el template
   template.pdfs = [
